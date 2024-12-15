@@ -15,5 +15,5 @@
 homepage: "https://www.trustpal.gr"
 documentation: "https://trustpal.gr/integration"
 versions:
-  - sha: 47c665a405cf4995f85c2d928b0e1a8fc0228285
-    changeNotes: Initial Version
+  - sha: 94916da0c841939c1aa633665a82f38b4a9eb026
+    changeNotes: Deploy
