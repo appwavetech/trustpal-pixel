@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Terms of Service
+// By using this template, you agree to the TrustPal Terms of Service.
+// You can review the full terms at: https://trustpal.gr/terms-of-use
+
 ___INFO___
 
 {
