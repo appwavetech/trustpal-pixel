@@ -67,33 +67,28 @@ if (!clientId) {
   return;
 }
 
-// Prepare script URL and attributes
-const scriptUrl = 'https://example.com/script.js';
-const scriptAttributes = {
-  'data-client-id': clientId
-};
-
-if (verificationTrustmark) {
-  scriptAttributes['data-verification-trustmark'] = verificationTrustmark;
-}
-
-if (checkoutUrl) {
-  scriptAttributes['data-checkout-url'] = checkoutUrl;
-}
-
-// Use injectScript to safely inject the script
-const injectScript = require('injectScript');
-injectScript(scriptUrl, scriptAttributes);
-
-// Log success
-log('TrustPal Pixel injected successfully:', {
+// Build the configuration object
+const config = {
   clientId: clientId,
   verificationTrustmark: verificationTrustmark,
   checkoutUrl: checkoutUrl
-});
+};
 
-// Call gtmOnSuccess when the tag is finished
-data.gtmOnSuccess();
+// Use the injectScript method to inject the inline configuration script
+const injectScript = require('injectScript');
+injectScript(
+  'https://trustpal.gr/lib/trustpal-1.0.0.min.js?clientId=' + data.clientId + '&verificationTrustmark=' + verificationTrustmark + '&checkoutUrl=' + checkoutUrl,
+  () => {
+    // Success callback
+    log('TrustPal Pixel configuration injected successfully:', config);
+    data.gtmOnSuccess();
+  },
+  () => {
+    // Failure callback
+    log('Error: Failed to inject TrustPal Pixel configuration script.');
+    data.gtmOnFailure();
+  }
+);
 
 
 ___WEB_PERMISSIONS___
@@ -114,6 +109,9 @@ ___WEB_PERMISSIONS___
           }
         }
       ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
     },
     "isRequired": true
   },
@@ -137,6 +135,6 @@ scenarios: []
 
 ___NOTES___
 
-Created on 15/12/2024, 20:07:36
+Created on 15/12/2024, 20:38:12
 
 
